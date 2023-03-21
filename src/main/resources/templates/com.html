@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>컴퓨터의 모든 내용</h1>
+    <table>
+        <span></span>
+        <tr>
+            <td>시리얼번호</td>
+            <td>cpu</td>
+            <td>ram</td>
+            <td>ssd</td>
+            <td>vga</td>
+        </tr>
+        <tr th:each="vo: ${vos}">
+            <td th:text="${vo.serialNumber}"></td>
+            <td th:text="${vo.cpu}"></td>
+            <td th:text="${vo.ram}"></td>
+            <td th:text="${vo.ssd}"></td>
+            <td th:text="${vo.vga}"></td>
+        </tr>
+    </table>
+</body>
+</html>

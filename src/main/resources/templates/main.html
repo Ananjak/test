@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://kit.fontawesome.com/d19fdaba43.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="get-all">
+        <h3>모든 컴퓨터 가져오기</h3>
+        <input type="button" value="가져오기">
+    </div>
+    <div id="get-computer">
+        <h3>특정 컴퓨터 가져오기</h3>
+        시리얼값: <input type="text">
+        <input type="button" value="가져오기">
+    </div>
+    <div id="get-ram">
+        <h3>특정 ram을 가지는 컴퓨터 가져오기</h3>
+        ram값: <input type="text">
+        <input type="button" value="가져오기">
+    </div>
+
+    <h3>가져온 결과</h3>
+    <div id="result"></div>
+</body>
+</html>
+
+
+<script>
+    const getAllBtn = document.getElementById("get-all").querySelector('input[type=button]');
+    const resultDiv = document.getElementById("result");
+
+    getAllBtn.onclick = () => {
+        const request = new XMLHttpRequest();
+        request.open('GET', '/api');
+        request.send();  //요청 전송
+        //send가 이루어졌고 response를 받으면 onload 이벤트가 발생함
+        request.onload = () => {
+            //응답받은 내용을 자바스크립트 객체 형태로 변환해서 가져온다
+            const datas = JSON.parse(request.responseText);
+            resultDiv.innerHTML = '';
+            for(let i = 0; i < datas.length; i++){
+                resultDiv.insertAdjacentHTML('beforeend',
+                    `<p>
+                        <span>${datas[i].serialNumber}</span> <br>
+                        <span>${datas[i].cpu}</span> <br>
+                        <span>${datas[i].ssd}</span> <br>
+                        <span>${datas[i].ram}</span> <br>
+                        <span>${datas[i].vga}</span> <br>
+                    </p>`
+                )
+                datas[i].serialNumber
+            }
+        }
+    }
+
+
+
+
+</script>
